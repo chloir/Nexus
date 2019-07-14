@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6039ff3-b2e5-4735-82f2-b67b2649af93" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Last/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Last/.idea/contentModel.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Last/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Last/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Last/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Last/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CameraController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/CameraController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlayerController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/PlayerController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Stage.mat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Stage.mat.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/UnityConnectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AimController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AimController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/CameraController.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+            <state relative-caret-position="36">
+              <caret line="4" column="45" lean-forward="true" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
               <folding>
                 <marker date="1563005291865" expanded="false" signature="6:78" ph="..." />
                 <marker date="1563005291865" expanded="true" signature="125:659" ph="{...}" />
@@ -38,21 +28,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/PlayerController.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+            <state relative-caret-position="169">
+              <caret line="31" column="65" lean-forward="true" selection-start-line="31" selection-start-column="65" selection-end-line="31" selection-end-column="65" />
               <folding>
-                <marker date="1563005619541" expanded="false" signature="6:78" ph="..." />
-                <marker date="1563005619541" expanded="true" signature="125:1496" ph="{...}" />
-                <marker date="1563005619541" expanded="true" signature="343:403" ph="{...}" />
-                <marker date="1563005619541" expanded="true" signature="422:507" ph="{...}" />
-                <marker date="1563005619541" expanded="true" signature="534:1494" ph="{...}" />
-                <marker date="1563005619541" expanded="true" signature="633:780" ph="{...}" />
-                <marker date="1563005619541" expanded="true" signature="826:975" ph="{...}" />
-                <marker date="1563005619541" expanded="true" signature="1019:1166" ph="{...}" />
-                <marker date="1563005619541" expanded="true" signature="1210:1363" ph="{...}" />
+                <marker date="1563109301631" expanded="false" signature="6:78" ph="..." />
+                <marker date="1563109301631" expanded="true" signature="125:2251" ph="{...}" />
+                <marker date="1563109301631" expanded="true" signature="455:515" ph="{...}" />
+                <marker date="1563109301631" expanded="true" signature="534:643" ph="{...}" />
+                <marker date="1563109301631" expanded="true" signature="668:1262" ph="{...}" />
+                <marker date="1563109301631" expanded="true" signature="876:934" ph="/* mouseY *= reverseY ? -1 : 1; //Y回転方向逆転 ... */" />
+                <marker date="1563109301631" expanded="true" signature="1289:2249" ph="{...}" />
+                <marker date="1563109301631" expanded="true" signature="1388:1535" ph="{...}" />
+                <marker date="1563109301631" expanded="true" signature="1581:1730" ph="{...}" />
+                <marker date="1563109301631" expanded="true" signature="1774:1921" ph="{...}" />
+                <marker date="1563109301631" expanded="true" signature="1965:2118" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -61,13 +53,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/Scripts/AimController.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="13" column="8" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+            <state relative-caret-position="288">
+              <caret line="16" column="109" lean-forward="true" selection-start-line="16" selection-start-column="109" selection-end-line="16" selection-end-column="109" />
               <folding>
-                <marker date="1563005971363" expanded="false" signature="6:78" ph="..." />
-                <marker date="1563005971363" expanded="true" signature="122:204" ph="{...}" />
-                <marker date="1563005971363" expanded="true" signature="141:162" ph="{...}" />
-                <marker date="1563005971363" expanded="true" signature="181:202" ph="{...}" />
+                <marker date="1563109164797" expanded="true" signature="6:100" ph="..." />
+                <marker date="1563109164797" expanded="true" signature="144:792" ph="{...}" />
+                <marker date="1563109164797" expanded="true" signature="255:334" ph="{...}" />
+                <marker date="1563109164797" expanded="true" signature="353:790" ph="{...}" />
+                <marker date="1563109164797" expanded="true" signature="471:784" ph="/* var inputAxis = new Vector3(Input.GetAxis(&quot;Mouse Y&quot;) * sensitivity, Input.GetAxis(&quot;Mouse X&quot;) * sensitivity, 0) ... */" />
               </folding>
             </state>
           </provider>
@@ -89,10 +82,11 @@
         <option value="$PROJECT_DIR$/Assets/CameraController.cs" />
         <option value="$PROJECT_DIR$/Assets/PlayerController.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/AimController.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/PlayerController.cs" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1680" />
     <option name="height" value="976" />
@@ -177,7 +171,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="976" extended-state="0" />
+    <frame x="0" y="23" width="1680" height="985" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.18681319" />
@@ -197,7 +191,7 @@
       <window_info anchor="bottom" id="Unity" order="11" />
       <window_info anchor="bottom" id="Unit Tests" order="12" />
       <window_info anchor="bottom" id="Terminal" order="13" />
-      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="14" side_tool="true" weight="0.32918552" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -235,46 +229,49 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/Scripts/CameraController.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="4" column="45" lean-forward="true" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+          <folding>
+            <marker date="1563005291865" expanded="false" signature="6:78" ph="..." />
+            <marker date="1563005291865" expanded="true" signature="125:659" ph="{...}" />
+            <marker date="1563005291865" expanded="true" signature="324:406" ph="{...}" />
+            <marker date="1563005291865" expanded="true" signature="425:657" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/AimController.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="13" column="8" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+        <state relative-caret-position="288">
+          <caret line="16" column="109" lean-forward="true" selection-start-line="16" selection-start-column="109" selection-end-line="16" selection-end-column="109" />
           <folding>
-            <marker date="1563005971363" expanded="false" signature="6:78" ph="..." />
-            <marker date="1563005971363" expanded="true" signature="122:204" ph="{...}" />
-            <marker date="1563005971363" expanded="true" signature="141:162" ph="{...}" />
-            <marker date="1563005971363" expanded="true" signature="181:202" ph="{...}" />
+            <marker date="1563109164797" expanded="true" signature="6:100" ph="..." />
+            <marker date="1563109164797" expanded="true" signature="144:792" ph="{...}" />
+            <marker date="1563109164797" expanded="true" signature="255:334" ph="{...}" />
+            <marker date="1563109164797" expanded="true" signature="353:790" ph="{...}" />
+            <marker date="1563109164797" expanded="true" signature="471:784" ph="/* var inputAxis = new Vector3(Input.GetAxis(&quot;Mouse Y&quot;) * sensitivity, Input.GetAxis(&quot;Mouse X&quot;) * sensitivity, 0) ... */" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/Scripts/PlayerController.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        <state relative-caret-position="169">
+          <caret line="31" column="65" lean-forward="true" selection-start-line="31" selection-start-column="65" selection-end-line="31" selection-end-column="65" />
           <folding>
-            <marker date="1563005619541" expanded="false" signature="6:78" ph="..." />
-            <marker date="1563005619541" expanded="true" signature="125:1496" ph="{...}" />
-            <marker date="1563005619541" expanded="true" signature="343:403" ph="{...}" />
-            <marker date="1563005619541" expanded="true" signature="422:507" ph="{...}" />
-            <marker date="1563005619541" expanded="true" signature="534:1494" ph="{...}" />
-            <marker date="1563005619541" expanded="true" signature="633:780" ph="{...}" />
-            <marker date="1563005619541" expanded="true" signature="826:975" ph="{...}" />
-            <marker date="1563005619541" expanded="true" signature="1019:1166" ph="{...}" />
-            <marker date="1563005619541" expanded="true" signature="1210:1363" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Assets/Scripts/CameraController.cs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
-          <folding>
-            <marker date="1563005291865" expanded="false" signature="6:78" ph="..." />
-            <marker date="1563005291865" expanded="true" signature="125:659" ph="{...}" />
-            <marker date="1563005291865" expanded="true" signature="324:406" ph="{...}" />
-            <marker date="1563005291865" expanded="true" signature="425:657" ph="{...}" />
+            <marker date="1563109301631" expanded="false" signature="6:78" ph="..." />
+            <marker date="1563109301631" expanded="true" signature="125:2251" ph="{...}" />
+            <marker date="1563109301631" expanded="true" signature="455:515" ph="{...}" />
+            <marker date="1563109301631" expanded="true" signature="534:643" ph="{...}" />
+            <marker date="1563109301631" expanded="true" signature="668:1262" ph="{...}" />
+            <marker date="1563109301631" expanded="true" signature="876:934" ph="/* mouseY *= reverseY ? -1 : 1; //Y回転方向逆転 ... */" />
+            <marker date="1563109301631" expanded="true" signature="1289:2249" ph="{...}" />
+            <marker date="1563109301631" expanded="true" signature="1388:1535" ph="{...}" />
+            <marker date="1563109301631" expanded="true" signature="1581:1730" ph="{...}" />
+            <marker date="1563109301631" expanded="true" signature="1774:1921" ph="{...}" />
+            <marker date="1563109301631" expanded="true" signature="1965:2118" ph="{...}" />
           </folding>
         </state>
       </provider>
