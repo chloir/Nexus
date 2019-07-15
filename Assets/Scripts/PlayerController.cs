@@ -5,23 +5,44 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody _rigidbody;
+    private Vector3 bulletOffset = new Vector3(0,0,2);
+    private Vector3 playerDirection = new Vector3();
+    
     [SerializeField] private float velocityMulti = 1;
     [SerializeField] private float boostVelocity = 20;
+    [SerializeField] private float jumpVelocity = 60;
+    [SerializeField] private float quickJumpVelocity = 30;
     [SerializeField] private GameObject aimTarget;
+
+    [SerializeField] private GameObject bullet = null;
     
     [SerializeField] private float sensitivity = 0.1f;
     [SerializeField] private float clampAngle = 60;
+    [SerializeField] private float bulletVelocity = 300;
     
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        var heading = aimTarget.transform.position - this.transform.position;
+
+        var dist = heading.magnitude;
+        playerDirection = heading / dist;
     }
 
     void Update()
     {
         MovementSystem();
         AimingSystem();
+        BulletSystem();
         transform.LookAt(aimTarget.transform);
+    }
+
+    void BulletSystem()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(bullet, transform.position + bulletOffset, Quaternion.identity).GetComponent<Rigidbody>().AddForce(this.transform.forward * bulletVelocity, ForceMode.Impulse);
+        }
     }
 
     void AimingSystem()
@@ -41,32 +62,35 @@ public class PlayerController : MonoBehaviour
 
     void MovementSystem()
     {
-        var direction = new Vector3();
+        var boostDirection = new Vector3();
         
         if (Input.GetAxis("Horizontal") < 0)
         {
             _rigidbody.AddForce(Vector3.left * velocityMulti, ForceMode.VelocityChange);
-            direction = Vector3.left;
+            boostDirection = Vector3.left;
         }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
             _rigidbody.AddForce(Vector3.right * velocityMulti, ForceMode.VelocityChange);
-            direction = Vector3.right;
+            boostDirection = Vector3.right;
         }
 
         if (Input.GetAxis("Vertical") < 0)
         {
             _rigidbody.AddForce(Vector3.back * velocityMulti, ForceMode.VelocityChange);
-            direction = Vector3.back;
+            boostDirection = Vector3.back;
         }
 
         if (Input.GetAxis("Vertical") > 0)
         {
             _rigidbody.AddForce(Vector3.forward * velocityMulti, ForceMode.VelocityChange);
-            direction = Vector3.forward;
+            boostDirection = Vector3.forward;
         }
         
-        if (Input.GetKeyDown(KeyCode.Space)) { _rigidbody.AddForce(direction * boostVelocity, ForceMode.Impulse); }
+        if (Input.GetKeyDown(KeyCode.Space)) { _rigidbody.AddForce(boostDirection * boostVelocity, ForceMode.Impulse); }
+        
+        if (Input.GetKeyDown(KeyCode.LeftShift)) { _rigidbody.AddForce(Vector3.up * quickJumpVelocity, ForceMode.Impulse); }
+        if (Input.GetKey(KeyCode.LeftShift)) { _rigidbody.AddForce(Vector3.up * jumpVelocity, ForceMode.Acceleration); }
     }
 }
