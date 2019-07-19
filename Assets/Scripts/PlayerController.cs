@@ -7,7 +7,7 @@ using UniRx.Triggers;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody _rigidbody;
-    private Vector3 bulletOffset = new Vector3(0,0,2);
+    private Vector3 bulletOffset;
     
     [SerializeField] private float velocityMulti = 1;
     [SerializeField] private float boostVelocity = 20;
@@ -41,9 +41,9 @@ public class PlayerController : MonoBehaviour
 
         // 視点移動
         this.UpdateAsObservable()
-            .Where(_ => Input.GetAxis("Mouse X") != 0 || Input.GetAxis("MouseY") != 0)
+            .Where(_ => Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
             .Subscribe(_ => AimingSystem());
-
+        
         // 移動
         this.UpdateAsObservable()
             .Where(_ => Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
@@ -51,17 +51,14 @@ public class PlayerController : MonoBehaviour
 
         targetTransform.AsObservable()
             .Subscribe(_ => transform.LookAt(aimTarget.transform));
-    }
 
-//    void Update()
-//    {
-//        MovementSystem();
-//        AimingSystem();
-//        transform.LookAt(aimTarget.transform);
-//    }
+//        mouseInput.AsObservable()
+//            .Subscribe(_ => AimingSystem());
+    }
 
     void ThrowBullet()
     {
+        bulletOffset = transform.forward * 4;
         Instantiate(bullet, transform.position + bulletOffset, Quaternion.identity).GetComponent<Rigidbody>().AddForce(this.transform.forward * bulletVelocity, ForceMode.Impulse);
     }
 
@@ -83,29 +80,31 @@ public class PlayerController : MonoBehaviour
     void MovementSystem()
     {
         var boostDirection = new Vector3();
+        var left = transform.right * -1;
+        var back = transform.forward * -1;
         
         if (Input.GetAxis("Horizontal") < 0)
         {
-            _rigidbody.AddForce(Vector3.left * velocityMulti, ForceMode.VelocityChange);
-            boostDirection = Vector3.left;
+            _rigidbody.AddForce(left * velocityMulti, ForceMode.VelocityChange);
+            boostDirection = left;
         }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
-            _rigidbody.AddForce(Vector3.right * velocityMulti, ForceMode.VelocityChange);
-            boostDirection = Vector3.right;
+            _rigidbody.AddForce(transform.right * velocityMulti, ForceMode.VelocityChange);
+            boostDirection = transform.right;
         }
 
         if (Input.GetAxis("Vertical") < 0)
         {
-            _rigidbody.AddForce(Vector3.back * velocityMulti, ForceMode.VelocityChange);
-            boostDirection = Vector3.back;
+            _rigidbody.AddForce(back * velocityMulti, ForceMode.VelocityChange);
+            boostDirection = back;
         }
 
         if (Input.GetAxis("Vertical") > 0)
         {
-            _rigidbody.AddForce(Vector3.forward * velocityMulti, ForceMode.VelocityChange);
-            boostDirection = Vector3.forward;
+            _rigidbody.AddForce(transform.forward * velocityMulti, ForceMode.VelocityChange);
+            boostDirection = transform.forward;
         }
         
         if (Input.GetKeyDown(KeyCode.Space)) { _rigidbody.AddForce(boostDirection * boostVelocity, ForceMode.Impulse); }

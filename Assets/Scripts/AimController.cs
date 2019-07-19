@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UniRx;
+using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,18 +12,12 @@ public class AimController : MonoBehaviour
     void Start()
     {
         //offset = transform.position - player.transform.position;
-    }
+        
+        var aimPos = new ReactiveProperty<Vector3>();
+        aimPos.Value = transform.position;
 
-    void Update()
-    {
-        reticle.transform.position = RectTransformUtility.WorldToScreenPoint(mainCamera, transform.position);
-
-//        var inputAxis = new Vector3(Input.GetAxis("Mouse Y") * sensitivity, Input.GetAxis("Mouse X") * sensitivity, 0);
-//
-//        var playerPos = player.transform.position;
-//
-//        transform.position = playerPos + offset;
-//        
-//        transform.RotateAround(playerPos, inputAxis, rotationangle);
+        aimPos.AsObservable()
+            .Subscribe(_ =>
+                reticle.transform.position = RectTransformUtility.WorldToScreenPoint(mainCamera, aimPos.Value));
     }
 }
