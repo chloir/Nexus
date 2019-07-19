@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
+using UniRx.Triggers;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     private Vector3 bulletOffset = new Vector3(0,0,2);
-    private Vector3 playerDirection = new Vector3();
     
     [SerializeField] private float velocityMulti = 1;
     [SerializeField] private float boostVelocity = 20;
@@ -22,27 +23,46 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
+        var mouseInput = new ReactiveProperty<float>();
+        mouseInput.Value = Input.GetAxis("Mouse X");
+        
+        var targetTransform = new ReactiveProperty<Vector3>();
+        targetTransform.Value = aimTarget.transform.position;
+
         _rigidbody = GetComponent<Rigidbody>();
-        var heading = aimTarget.transform.position - this.transform.position;
+        
+        // カーソル固定
+        Cursor.lockState = CursorLockMode.Locked;
+        
+        // 弾の発射
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetMouseButtonDown(0))
+            .Subscribe(_ => ThrowBullet());
 
-        var dist = heading.magnitude;
-        playerDirection = heading / dist;
+        // 視点移動
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetAxis("Mouse X") != 0 || Input.GetAxis("MouseY") != 0)
+            .Subscribe(_ => AimingSystem());
+
+        // 移動
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+            .Subscribe(_ => MovementSystem());
+
+        targetTransform.AsObservable()
+            .Subscribe(_ => transform.LookAt(aimTarget.transform));
     }
 
-    void Update()
-    {
-        MovementSystem();
-        AimingSystem();
-        BulletSystem();
-        transform.LookAt(aimTarget.transform);
-    }
+//    void Update()
+//    {
+//        MovementSystem();
+//        AimingSystem();
+//        transform.LookAt(aimTarget.transform);
+//    }
 
-    void BulletSystem()
+    void ThrowBullet()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Instantiate(bullet, transform.position + bulletOffset, Quaternion.identity).GetComponent<Rigidbody>().AddForce(this.transform.forward * bulletVelocity, ForceMode.Impulse);
-        }
+        Instantiate(bullet, transform.position + bulletOffset, Quaternion.identity).GetComponent<Rigidbody>().AddForce(this.transform.forward * bulletVelocity, ForceMode.Impulse);
     }
 
     void AimingSystem()
