@@ -11,12 +11,13 @@ public class TargetController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("bullet"))
         {
-            Destroy(gameObject);
+            AP -= Damage;
+            Debug.Log(AP);
         }
 
-//        if (AP < 0)
-//        {
-//            Destroy(gameObject);
-//        }
+        if (AP < 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
