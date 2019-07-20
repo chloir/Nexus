@@ -16,24 +16,6 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         offset = this.transform.position - player.transform.position;
-
-//        var playerPos = new ReactiveProperty<Vector3>();
-//        playerPos.Value = player.transform.position;
-//        
-//        
-//
-//        playerPos.Subscribe(_ =>
-//        {
-//            transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * duration);
-//            transform.LookAt((aimTarget.transform));
-//        });
-
-//        playerPos.AsObservable()
-//            .Subscribe(_ =>
-//            {
-//                transform.position = Vector3.Lerp(transform.position, target, Time.deltaTime * duration);
-//                transform.LookAt((aimTarget.transform));
-//            });
     }
 
     void Update()
