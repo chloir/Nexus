@@ -298,6 +298,7 @@
         <e p="Scripts" t="Include">
           <e p="AimController.cs" t="Include" />
           <e p="CameraController.cs" t="Include" />
+          <e p="Debugger.cs" t="Include" />
           <e p="EnemyController.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
           <e p="TargetController.cs" t="Include" />

@@ -20,9 +20,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sensitivity = 0.1f;
     [SerializeField] private float clampAngle = 60;
     [SerializeField] private float bulletVelocity = 300;
+
+    [SerializeField] private GameObject camerapos;
+    private Vector3 defaultCameraPos;
     
     void Start()
     {
+        defaultCameraPos = camerapos.transform.localPosition;
         var mouseInput = new ReactiveProperty<float>();
         mouseInput.Value = Input.GetAxis("Mouse X");
         
