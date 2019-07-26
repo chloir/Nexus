@@ -8,6 +8,7 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private GameObject player;
+
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject destination;
     [SerializeField] private float bulletOffset = 4;
@@ -15,13 +16,11 @@ public class EnemyController : MonoBehaviour
     private Vector3 dir;
     private NavMeshAgent agent;
     private bool find = false;
-    
-
     // Start is called before the first frame update
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        
+       
         this.UpdateAsObservable()
             .Where(_ => find)
             .Subscribe(_ => Shot());
