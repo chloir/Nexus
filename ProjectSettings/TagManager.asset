@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - bullet
+  - AimTarget
+  - CameraTarget
+  - ReticleImage
   layers:
   - Default
   - TransparentFX

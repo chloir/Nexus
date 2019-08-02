@@ -11,7 +11,8 @@ public class AimController : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     void Start()
     {
-        //offset = transform.position - player.transform.position;
+        reticle = GameObject.FindWithTag("ReticleImage").GetComponent<Image>();
+        mainCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         
         var aimPos = new ReactiveProperty<Vector3>();
         aimPos.Value = transform.position;

@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody _rigidbody;
     private Vector3 bulletOffset;
-    
+    private bool canShot = true;
+
+    #region SerializeFieldVariables
+
     [SerializeField] private float velocityMulti = 1;
     [SerializeField] private float boostVelocity = 20;
     [SerializeField] private float jumpVelocity = 60;
@@ -21,27 +25,50 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float clampAngle = 60;
     [SerializeField] private float bulletVelocity = 300;
 
-    [SerializeField] private GameObject camerapos;
-    private Vector3 defaultCameraPos;
-    
+    [SerializeField] private int bulletCount = 100;
+    [SerializeField] private Text bulletUI = null;
+
+    [SerializeField] private int AP = 40000;
+    [SerializeField] private Text APUI = null;
+
+    [SerializeField] private WeaponSystem.WeaponType defaultWeapon;
+    #endregion
+
     void Start()
     {
-        defaultCameraPos = camerapos.transform.localPosition;
-        var mouseInput = new ReactiveProperty<float>();
-        mouseInput.Value = Input.GetAxis("Mouse X");
+        var weaponSys = GetComponent<WeaponSystem>();
         
         var targetTransform = new ReactiveProperty<Vector3>();
         targetTransform.Value = aimTarget.transform.position;
+        
+        var bulletcounter = new ReactiveProperty<int>();
+        bulletcounter.Value = bulletCount;
+        
+        var APcounter = new ReactiveProperty<int>();
+        APcounter.Value = AP;
+
+        bulletUI = GameObject.Find("BulletUI").GetComponent<Text>();
+        APUI = GameObject.Find("AP").GetComponent<Text>();
+        
+        bulletUI.text = $"Bullet {bulletcounter.Value} / {bulletCount}";
+        APUI.text = $"AP {APcounter.Value}";
 
         _rigidbody = GetComponent<Rigidbody>();
+        
+        weaponSys.SetWeapon(defaultWeapon);
         
         // カーソル固定
         Cursor.lockState = CursorLockMode.Locked;
         
         // 弾の発射
         this.UpdateAsObservable()
-            .Where(_ => Input.GetMouseButtonDown(0))
-            .Subscribe(_ => ThrowBullet());
+            .Where(_ => Input.GetMouseButton(0) && canShot)
+            .Subscribe(_ =>
+            {
+                weaponSys.Fire(transform);
+                bulletcounter.Value--;
+                bulletUI.text = $"Bullet {bulletcounter.Value} / {bulletCount}";
+            });
 
         // 視点移動
         this.UpdateAsObservable()
@@ -53,17 +80,36 @@ public class PlayerController : MonoBehaviour
             .Where(_ => Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             .Subscribe(_ => MovementSystem());
 
+        // 弾切れ判定
+        bulletcounter.AsObservable()
+            .Subscribe(_ =>
+            {
+                if (bulletcounter.Value < 1)
+                    canShot = false;
+                
+                Debug.Log(bulletcounter.Value);
+            });
+        
+        // 自分の命中
+        this.OnTriggerEnterAsObservable()
+            .Where(x => x.CompareTag("bullet"))
+            .Subscribe(_ =>
+            {
+                APcounter.Value -= 350;
+                APUI.text = $"AP {APcounter.Value}";
+            });
+        
+        // エイム方向をみる
         targetTransform.AsObservable()
             .Subscribe(_ => transform.LookAt(aimTarget.transform));
-
-//        mouseInput.AsObservable()
-//            .Subscribe(_ => AimingSystem());
     }
 
     void ThrowBullet()
     {
         bulletOffset = transform.forward * 4;
-        Instantiate(bullet, transform.position + bulletOffset, Quaternion.identity).GetComponent<Rigidbody>().AddForce(this.transform.forward * bulletVelocity, ForceMode.Impulse);
+        Instantiate(bullet, transform.position + bulletOffset, Quaternion.identity)
+            .GetComponent<Rigidbody>()
+            .AddForce(this.transform.forward * bulletVelocity, ForceMode.Impulse);
     }
 
     void AimingSystem()

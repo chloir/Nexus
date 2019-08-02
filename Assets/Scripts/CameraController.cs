@@ -16,7 +16,9 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-
+        player = GameObject.FindWithTag("Player");
+        aimTarget = GameObject.FindWithTag("AimTarget");
+        cameraPosTarget = GameObject.FindWithTag("CameraTarget");
     }
 
     void Update()

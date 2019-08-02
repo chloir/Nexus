@@ -7,26 +7,44 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    #region SerializeFieldVariables
+    
     [SerializeField] private GameObject player;
 
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject destination;
     [SerializeField] private float bulletOffset = 4;
     [SerializeField] private float bulletVelocity = 200;
+
+    #endregion
+
+    private int AP = 10000;
     private Vector3 dir;
     private NavMeshAgent agent;
     private bool find = false;
-    // Start is called before the first frame update
+
     void Start()
     {
+        var reactiveAP = new ReactiveProperty<int>();
+        reactiveAP.Value = AP;
+        
+        player = GameObject.FindWithTag("Player");
+        
         agent = GetComponent<NavMeshAgent>();
        
         this.UpdateAsObservable()
             .Where(_ => find)
             .Subscribe(_ => Shot());
+
+        this.OnTriggerEnterAsObservable()
+            .Where(x => x.CompareTag("bullet"))
+            .Subscribe(_ => reactiveAP.Value -= 1000);
+
+        reactiveAP.AsObservable()
+            .Where(_ => reactiveAP.Value < 0)
+            .Subscribe(_ => Destroy(gameObject));
     }
 
-    // Update is called once per frame
     void Update()
     {
         var dist = Vector3.Distance(transform.position, player.transform.position);
@@ -58,9 +76,11 @@ public class EnemyController : MonoBehaviour
 
     void Shot()
     {
-        var obj = Instantiate(bullet, dir.normalized * bulletOffset, Quaternion.identity);
-        var rigid = obj.GetComponent<Rigidbody>();
-        rigid.AddForce(transform.forward * bulletVelocity, ForceMode.Impulse);
+/*
+        Instantiate(bullet, transform.position + transform.forward * 4, Quaternion.identity)
+            .GetComponent<Rigidbody>()
+            .AddForce(transform.forward * bulletVelocity, ForceMode.Impulse);
+*/
 
         Debug.Log("Shot() Called");
     }
