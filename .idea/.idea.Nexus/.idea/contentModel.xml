@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\kuma\.Rider2019.1\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\kuma\.Rider2019.1\system\resharper-host\local\Transient\ReSharperHost\v191\SolutionCaches\_Nexus.1718049356.00" t="ExcludeRecursive" />
-    <e p="C:\Users\kuma\Documents\GitHub\Nexus" t="IncludeRecursive">
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor-firstpass.csproj" t="IncludeRecursive" />
+      <e p="Assembly-CSharp-firstpass.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
         <e p="Plugins" t="Include">
@@ -33,6 +32,7 @@
               <e p="Sample13_ToDoApp.cs" t="Include" />
               <e p="UniRx.Examples.asmdef" t="Include" />
             </e>
+            <e p="ReadMe.txt" t="Include" />
             <e p="Scripts" t="Include">
               <e p="Asynchronous" t="Include">
                 <e p="WebRequestExtensions.cs" t="Include" />
@@ -294,6 +294,7 @@
               </e>
             </e>
           </e>
+          <e p="UnitySingleton.cs" t="Include" />
         </e>
         <e p="Scripts" t="Include">
           <e p="AimController.cs" t="Include" />
@@ -301,9 +302,11 @@
           <e p="CameraController.cs" t="Include" />
           <e p="Debugger.cs" t="Include" />
           <e p="EnemyController.cs" t="Include" />
+          <e p="MechSelectionController.cs" t="Include" />
           <e p="MechSpecifications.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
           <e p="TargetController.cs" t="Include" />
+          <e p="TotalGameManager.cs" t="Include" />
           <e p="UIController.cs" t="Include" />
           <e p="WeaponSystem.cs" t="Include" />
         </e>
@@ -311,9 +314,11 @@
       <e p="Nexus.sln" t="IncludeFlat" />
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
-      <e p="Temp\bin" t="ExcludeRecursive" />
+      <e p="Temp/bin" t="ExcludeRecursive" />
       <e p="UniRx.csproj" t="IncludeRecursive" />
       <e p="UniRx.Examples.csproj" t="IncludeRecursive" />
     </e>
+    <e p="$USER_HOME$/Library/Caches/Rider2019.1/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.1/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_Nexus.-1083426994.00" t="ExcludeRecursive" />
   </component>
 </project>

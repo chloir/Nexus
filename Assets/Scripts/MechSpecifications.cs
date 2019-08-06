@@ -11,8 +11,7 @@ public class MechSpecifications : ScriptableObject
 [System.Serializable]
 public class MechSpec
 {
-    public float velocityMulti = 0;
-    public float boostVelocity = 0;
-    public float jumpVelovity = 0;
-    public float quickJumpVelocity = 0;
+    public string mechName = "undefined";
+    public int mechId = 0;
+    public GameObject mechPrefab = null;
 }
