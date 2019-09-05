@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UniRx;
+﻿using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 using UnityEngine.AI;
@@ -32,39 +30,42 @@ public class EnemyController : MonoBehaviour
         
         agent = GetComponent<NavMeshAgent>();
        
+        // プレイヤーに射線が通れば撃つ
         this.UpdateAsObservable()
             .Where(_ => find)
             .Subscribe(_ => Shot());
 
+        // レイキャストで射線判定＆移動
+        this.UpdateAsObservable()
+            .Subscribe(_ =>
+            {
+                var dist = Vector3.Distance(transform.position, player.transform.position);
+                dir = player.transform.position - transform.position;
+
+                RaycastHit hit;
+                if (Physics.Raycast(this.transform.position, dir.normalized, out hit, dist))
+                {
+                    find = false;
+                }
+                else
+                {
+                    find = true;
+                }
+
+                EnemyMove();
+
+                transform.LookAt(player.transform.position);
+            });
+
+        // 被弾時のダメージ判定
         this.OnTriggerEnterAsObservable()
             .Where(x => x.CompareTag("bullet"))
             .Subscribe(_ => reactiveAP.Value -= 1000);
 
+        // 撃破判定
         reactiveAP.AsObservable()
             .Where(_ => reactiveAP.Value < 0)
             .Subscribe(_ => Destroy(gameObject));
-    }
-
-    void Update()
-    {
-        var dist = Vector3.Distance(transform.position, player.transform.position);
-        dir = player.transform.position - transform.position;
-        
-        RaycastHit hit;
-        if (Physics.Raycast(this.transform.position, dir.normalized, out hit, dist))
-        {
-            find = false;
-        }
-        else
-        {
-            find = true;
-        }
-        
-        EnemyMove();
-        
-        transform.LookAt(player.transform.position);
-        
-        Debug.Log(find);
     }
 
     void EnemyMove()

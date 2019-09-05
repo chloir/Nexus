@@ -301,13 +301,16 @@
           <e p="BulletController.cs" t="Include" />
           <e p="CameraController.cs" t="Include" />
           <e p="Debugger.cs" t="Include" />
+          <e p="EnemyAgent.cs" t="Include" />
           <e p="EnemyController.cs" t="Include" />
           <e p="MechSelectionController.cs" t="Include" />
           <e p="MechSpecifications.cs" t="Include" />
+          <e p="MissionSelectManager.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />
           <e p="TargetController.cs" t="Include" />
           <e p="TotalGameManager.cs" t="Include" />
           <e p="UIController.cs" t="Include" />
+          <e p="WeaponInfo.cs" t="Include" />
           <e p="WeaponSystem.cs" t="Include" />
         </e>
       </e>
@@ -318,7 +321,7 @@
       <e p="UniRx.csproj" t="IncludeRecursive" />
       <e p="UniRx.Examples.csproj" t="IncludeRecursive" />
     </e>
-    <e p="$USER_HOME$/Library/Caches/Rider2019.1/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2019.1/resharper-host/local/Transient/ReSharperHost/v191/SolutionCaches/_Nexus.-1083426994.00" t="ExcludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_Nexus.-1083426994.00" t="ExcludeRecursive" />
   </component>
 </project>

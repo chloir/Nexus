@@ -3,10 +3,7 @@ using System;
 
 public class UnitySingleton<T> : MonoBehaviour where T : UnitySingleton<T>
 {
-    protected static readonly string[] findTags  =
-    {
-        "GameController",
-    };
+    protected static readonly string findTags  = "GameController";
 
     protected static T instance;
     public static T Instance {
@@ -15,17 +12,10 @@ public class UnitySingleton<T> : MonoBehaviour where T : UnitySingleton<T>
 
                 Type type = typeof(T);
 
-                foreach( var tag in findTags )
-                {
-                    GameObject[] objs = GameObject.FindGameObjectsWithTag(tag);
+                GameObject obj = GameObject.FindWithTag(findTags);
 
-                    for(int j=0; j<objs.Length; j++)
-                    {
-                        instance = (T)objs[j].GetComponent(type);
-                        if( instance != null)
-                            return instance;
-                    }
-                }
+                instance = (T) obj.GetComponent(type);
+                if (instance != null) return instance;
 
                 Debug.LogWarning( $"{type.Name} is not found");
             }

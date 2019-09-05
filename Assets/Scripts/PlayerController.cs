@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -13,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     #region SerializeFieldVariables
 
-    [SerializeField] private float velocityMulti = 1;
+    [FormerlySerializedAs("velocityMulti")] [SerializeField] private float movementVelocity = 1;
     [SerializeField] private float boostVelocity = 20;
     [SerializeField] private float jumpVelocity = 60;
     [SerializeField] private float quickJumpVelocity = 30;
@@ -47,6 +48,8 @@ public class PlayerController : MonoBehaviour
         var APcounter = new ReactiveProperty<int>();
         APcounter.Value = AP;
 
+        var weapon = defaultWeapon;
+
         bulletUI = GameObject.Find("BulletUI").GetComponent<Text>();
         APUI = GameObject.Find("AP").GetComponent<Text>();
         
@@ -55,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
         _rigidbody = GetComponent<Rigidbody>();
         
-        weaponSys.SetWeapon(defaultWeapon);
+        weaponSys.SetWeapon(weapon);
         
         // カーソル固定
         Cursor.lockState = CursorLockMode.Locked;
@@ -69,6 +72,14 @@ public class PlayerController : MonoBehaviour
                 bulletcounter.Value--;
                 bulletUI.text = $"Bullet {bulletcounter.Value} / {bulletCount}";
             });
+        
+        // 武器切り替え
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetKeyDown(KeyCode.Q))
+            .Subscribe(_ =>
+            {
+                weapon++;
+            });
 
         // 視点移動
         this.UpdateAsObservable()
@@ -79,6 +90,14 @@ public class PlayerController : MonoBehaviour
         this.UpdateAsObservable()
             .Where(_ => Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             .Subscribe(_ => MovementSystem());
+        
+        // ブースト
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetKeyDown(KeyCode.LeftShift))
+            .Subscribe(_ => _rigidbody.AddForce(Vector3.up * quickJumpVelocity, ForceMode.Impulse));
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetKey(KeyCode.LeftShift))
+            .Subscribe(_ => _rigidbody.AddForce(Vector3.up * jumpVelocity, ForceMode.Acceleration));
 
         // 弾切れ判定
         bulletcounter.AsObservable()
@@ -135,31 +154,32 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetAxis("Horizontal") < 0)
         {
-            _rigidbody.AddForce(left * velocityMulti, ForceMode.VelocityChange);
+            this.transform.Translate(movementVelocity * -1f, 0, 0);
+            //_rigidbody.AddForce(left * velocityMulti, ForceMode.VelocityChange);
             boostDirection = left;
         }
 
         if (Input.GetAxis("Horizontal") > 0)
         {
-            _rigidbody.AddForce(transform.right * velocityMulti, ForceMode.VelocityChange);
+            this.transform.Translate(movementVelocity, 0, 0);
+            //_rigidbody.AddForce(transform.right * velocityMulti, ForceMode.VelocityChange);
             boostDirection = transform.right;
         }
 
         if (Input.GetAxis("Vertical") < 0)
         {
-            _rigidbody.AddForce(back * velocityMulti, ForceMode.VelocityChange);
+            this.transform.Translate(0, 0, movementVelocity * -1f);
+            //_rigidbody.AddForce(back * velocityMulti, ForceMode.VelocityChange);
             boostDirection = back;
         }
 
         if (Input.GetAxis("Vertical") > 0)
         {
-            _rigidbody.AddForce(transform.forward * velocityMulti, ForceMode.VelocityChange);
+            this.transform.Translate(0, 0, movementVelocity);
+            //_rigidbody.AddForce(transform.forward * velocityMulti, ForceMode.VelocityChange);
             boostDirection = transform.forward;
         }
         
         if (Input.GetKeyDown(KeyCode.Space)) { _rigidbody.AddForce(boostDirection * boostVelocity, ForceMode.Impulse); }
-        
-        if (Input.GetKeyDown(KeyCode.LeftShift)) { _rigidbody.AddForce(Vector3.up * quickJumpVelocity, ForceMode.Impulse); }
-        if (Input.GetKey(KeyCode.LeftShift)) { _rigidbody.AddForce(Vector3.up * jumpVelocity, ForceMode.Acceleration); }
     }
 }

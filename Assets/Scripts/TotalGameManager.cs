@@ -2,27 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System.Security.Cryptography;
 
-public class TotalGameManager : UnitySingleton<TotalGameManager>
+public class TotalGameManager : MonoBehaviour
 {
-    [SerializeField] private MechSpecifications MechData = null;
-    private MechSpec _selectedMech = null;
+    private int destroyedEnemy = 0;
 
-    void SetPlayerMech(int mechId)
+    public void AddDestroyedEnemy(int diff)
     {
-        _selectedMech = GetMechDataById(mechId);
-    }
-    
-    MechSpec GetMechDataById(int mechId)
-    {
-        var data = MechData.MechSpecs
-            .First(x => x.mechId == mechId);
-
-        return data;
+        destroyedEnemy += diff;
     }
 
-    MechSpecifications GetMechDataMaster()
+    public int GetDestroyedEnemy()
     {
-        return MechData;
+        return destroyedEnemy;
     }
 }

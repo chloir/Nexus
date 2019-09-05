@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: MechSpecifications
   m_EditorClassIdentifier: 
   MechSpecs:
-  - velocityMulti: 0
-    boostVelocity: 0
-    jumpVelovity: 0
-    quickJumpVelocity: 0
+  - mechName: Standard
+    mechId: 0
+    mechPrefab: {fileID: 2954157210812590497, guid: db4945d9f468faf4a99ebb3a32e93d0d,
+      type: 3}
+  - mechName: Heavy
+    mechId: 1
+    mechPrefab: {fileID: 5082200044977681087, guid: 8ce456536c52dc643966c9b26c2f0c12,
+      type: 3}

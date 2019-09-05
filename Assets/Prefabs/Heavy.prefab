@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ab9b030f5545a472d8b9ba33f8810b93, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -121,6 +121,7 @@ MonoBehaviour:
   bulletUI: {fileID: 0}
   AP: 40000
   APUI: {fileID: 0}
+  defaultWeapon: 0
 --- !u!54 &5082200044977681086
 Rigidbody:
   m_ObjectHideFlags: 0

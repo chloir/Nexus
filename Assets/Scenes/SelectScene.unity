@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 88160673}
   - component: {fileID: 88160672}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: MechPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -240,7 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90cb51713c6a1449e96f81619b00ea1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _selectedMech: {fileID: 0}
+  mechPosition: {fileID: 88160671}
+  showCaseRotateAngle: {x: 0, y: 10, z: 0}
 --- !u!4 &240912852
 Transform:
   m_ObjectHideFlags: 0
