@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private Vector3 bulletOffset;
     private bool canShot = true;
+    private bool isReload = false;
 
     #region SerializeFieldVariables
 
@@ -73,12 +74,27 @@ public class PlayerController : MonoBehaviour
                 bulletUI.text = $"Bullet {bulletcounter.Value} / {bulletCount}";
             });
         
-        // 武器切り替え
+        // リロード
+        float reloadTimer = 0f;
+        
         this.UpdateAsObservable()
             .Where(_ => Input.GetKeyDown(KeyCode.Q))
+            .Subscribe(_ => isReload = true);
+
+        this.UpdateAsObservable()
+            .Where(_ => isReload)
             .Subscribe(_ =>
             {
-                weapon++;
+                canShot = false;
+                reloadTimer += Time.deltaTime;
+                if (reloadTimer > 1)
+                {
+                    isReload = false;
+                    canShot = true;
+                    bulletcounter.Value = bulletCount;
+                    bulletUI.text = $"Bullet {bulletcounter.Value} / {bulletCount}";
+                    reloadTimer = 0;
+                }
             });
 
         // 視点移動
@@ -87,9 +103,49 @@ public class PlayerController : MonoBehaviour
             .Subscribe(_ => AimingSystem());
         
         // 移動
+        var boostDirection = new Vector3();
+        var left = transform.right * -1;
+        var back = transform.forward * -1;
+        
         this.UpdateAsObservable()
-            .Where(_ => Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-            .Subscribe(_ => MovementSystem());
+            .Where(_ => Input.GetAxis("Horizontal") < 0)
+            .Subscribe(_ =>
+            {
+                this.transform.Translate(movementVelocity * -1f, 0, 0);
+                boostDirection = left;
+            });
+
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetAxis("Horizontal") > 0)
+            .Subscribe(_ =>
+            {
+                this.transform.Translate(movementVelocity, 0, 0);
+                boostDirection = transform.right;
+            });
+
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetAxis("Vertical") < 0)
+            .Subscribe(_ =>
+            {
+                this.transform.Translate(0, 0, movementVelocity * -1f);
+                boostDirection = back;
+            });
+
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetAxis("Vertical") > 0)
+            .Subscribe(_ =>
+            {
+                this.transform.Translate(0, 0, movementVelocity);
+                boostDirection = transform.forward;
+            });
+
+        this.UpdateAsObservable()
+            .Where(_ => Input.GetKeyDown(KeyCode.Space))
+            .Subscribe(_ => _rigidbody.AddForce(boostDirection * boostVelocity, ForceMode.Impulse));
+
+//        this.UpdateAsObservable()
+//            .Where(_ => Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+//            .Subscribe(_ => MovementSystem());
         
         // ブースト
         this.UpdateAsObservable()
