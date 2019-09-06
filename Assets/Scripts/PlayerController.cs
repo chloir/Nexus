@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TreeEditor;
 using UnityEngine;
 using UniRx;
 using UniRx.Triggers;
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 bulletOffset;
     private bool canShot = true;
     private bool isReload = false;
+    private TotalGameManager manager;
 
     #region SerializeFieldVariables
 
@@ -104,15 +106,13 @@ public class PlayerController : MonoBehaviour
         
         // 移動
         var boostDirection = new Vector3();
-        var left = transform.right * -1;
-        var back = transform.forward * -1;
-        
+
         this.UpdateAsObservable()
             .Where(_ => Input.GetAxis("Horizontal") < 0)
             .Subscribe(_ =>
             {
                 this.transform.Translate(movementVelocity * -1f, 0, 0);
-                boostDirection = left;
+                boostDirection = transform.right * -1;
             });
 
         this.UpdateAsObservable()
@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
             .Subscribe(_ =>
             {
                 this.transform.Translate(0, 0, movementVelocity * -1f);
-                boostDirection = back;
+                boostDirection = transform.forward * -1;
             });
 
         this.UpdateAsObservable()
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
                 if (bulletcounter.Value < 1)
                     canShot = false;
                 
-                Debug.Log(bulletcounter.Value);
+                //Debug.Log(bulletcounter.Value);
             });
         
         // 自分の命中
@@ -191,9 +191,7 @@ public class PlayerController : MonoBehaviour
     {
         //マウス移動量
         var mouseX = Input.GetAxis("Mouse X") * sensitivity;
-        //mouseX *= reverseX ? -1 : 1; //X回転方向逆転
         var mouseY = Input.GetAxis("Mouse Y") * sensitivity * -1;
-        //mouseY *= reverseY ? -1 : 1; //Y回転方向逆転
         //メイン照準回転
         var nowRot = this.transform.localEulerAngles;
         var newX = this.transform.localEulerAngles.x + mouseY;

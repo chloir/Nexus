@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8184711860085158978}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -131,8 +131,7 @@ MonoBehaviour:
   player: {fileID: 0}
   bullet: {fileID: 6114668328942757441, guid: dcaeea620a6da4429aea6ded103d55c0, type: 3}
   destination: {fileID: 8184711861122907223}
-  bulletOffset: 4
-  bulletVelocity: 200
+  bulletVelocity: 100
 --- !u!1 &8184711861122907223
 GameObject:
   m_ObjectHideFlags: 0

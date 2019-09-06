@@ -11,7 +11,6 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject destination;
-    [SerializeField] private float bulletOffset = 4;
     [SerializeField] private float bulletVelocity = 200;
 
     #endregion
@@ -20,9 +19,14 @@ public class EnemyController : MonoBehaviour
     private Vector3 dir;
     private NavMeshAgent agent;
     private bool find = false;
+    private int shotTimer = 1;
 
     void Start()
     {
+        var manager = GameObject.FindWithTag("GameController").GetComponent<TotalGameManager>();
+
+        float timer = 0;
+        
         var reactiveAP = new ReactiveProperty<int>();
         reactiveAP.Value = AP;
         
@@ -33,7 +37,15 @@ public class EnemyController : MonoBehaviour
         // プレイヤーに射線が通れば撃つ
         this.UpdateAsObservable()
             .Where(_ => find)
-            .Subscribe(_ => Shot());
+            .Subscribe(_ =>
+            {
+                timer += Time.deltaTime;
+                if (timer > shotTimer)
+                {
+                    Shot();
+                    timer = 0;
+                }
+            });
 
         // レイキャストで射線判定＆移動
         this.UpdateAsObservable()
@@ -65,7 +77,11 @@ public class EnemyController : MonoBehaviour
         // 撃破判定
         reactiveAP.AsObservable()
             .Where(_ => reactiveAP.Value < 0)
-            .Subscribe(_ => Destroy(gameObject));
+            .Subscribe(_ =>
+            {
+                manager.TranslateEnemyCount(-1);
+                Destroy(gameObject);
+            });
     }
 
     void EnemyMove()
@@ -77,12 +93,17 @@ public class EnemyController : MonoBehaviour
 
     void Shot()
     {
+        var bulletOffset = transform.forward * 4;
+        Instantiate(bullet, transform.position + bulletOffset, Quaternion.identity)
+            .GetComponent<Rigidbody>()
+            .AddForce(this.transform.forward * bulletVelocity, ForceMode.Impulse);
+        
 /*
         Instantiate(bullet, transform.position + transform.forward * 4, Quaternion.identity)
             .GetComponent<Rigidbody>()
             .AddForce(transform.forward * bulletVelocity, ForceMode.Impulse);
 */
 
-        Debug.Log("Shot() Called");
+        // Debug.Log("Shot() Called");
     }
 }
