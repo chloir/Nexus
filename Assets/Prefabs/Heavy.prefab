@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23860277334064358adbfa18e54f3a80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementVelocity: 1
+  movementVelocity: 0.2
   boostVelocity: 100
   jumpVelocity: 60
   quickJumpVelocity: 30
@@ -116,7 +116,7 @@ MonoBehaviour:
   bullet: {fileID: 6114668328942757441, guid: dcaeea620a6da4429aea6ded103d55c0, type: 3}
   sensitivity: 3
   clampAngle: 60
-  bulletVelocity: 300
+  bulletVelocity: 150
   bulletCount: 100
   bulletUI: {fileID: 0}
   AP: 40000

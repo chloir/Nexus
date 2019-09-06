@@ -1258,31 +1258,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5082200044977681085, guid: 8ce456536c52dc643966c9b26c2f0c12,
-        type: 3}
-      propertyPath: bulletUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082200044977681085, guid: 8ce456536c52dc643966c9b26c2f0c12,
-        type: 3}
-      propertyPath: APUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082200044977681085, guid: 8ce456536c52dc643966c9b26c2f0c12,
-        type: 3}
-      propertyPath: boostVelocity
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082200044977681085, guid: 8ce456536c52dc643966c9b26c2f0c12,
-        type: 3}
-      propertyPath: movementVelocity
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5082200044977681085, guid: 8ce456536c52dc643966c9b26c2f0c12,
-        type: 3}
-      propertyPath: bulletVelocity
-      value: 150
-      objectReference: {fileID: 0}
     - target: {fileID: 5082200044977681086, guid: 8ce456536c52dc643966c9b26c2f0c12,
         type: 3}
       propertyPath: m_Constraints
